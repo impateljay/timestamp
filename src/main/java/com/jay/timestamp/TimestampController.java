@@ -15,8 +15,13 @@ import java.util.TimeZone;
 @RequestMapping("")
 public class TimestampController {
 
+    @GetMapping("/")
+    public ResponseEntity<String> getUTCDate() {
+        return getStringResponseEntity("UTC");
+    }
+
     @GetMapping("/{timezone}")
-    public ResponseEntity<String> toUTC(@PathVariable(value = "timezone") String timezone) {
+    public ResponseEntity<String> getTimezoneDate(@PathVariable(value = "timezone") String timezone) {
         return getStringResponseEntity(timezone);
     }
 
@@ -30,7 +35,7 @@ public class TimestampController {
     }
 
     @GetMapping("/{timezone1}/{timezone2}")
-    public ResponseEntity<String> toUTC(@PathVariable(value = "timezone1") String timezone1, @PathVariable(value = "timezone2") String timezone2) {
+    public ResponseEntity<String> getTimezoneDate(@PathVariable(value = "timezone1") String timezone1, @PathVariable(value = "timezone2") String timezone2) {
         return getStringResponseEntity(timezone1 + "/" + timezone2);
     }
 }
