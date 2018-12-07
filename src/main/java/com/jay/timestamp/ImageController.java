@@ -2,6 +2,7 @@ package com.jay.timestamp;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,26 @@ public class ImageController {
         } else {
             map.put("error", "file can't be empty");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = "/image/download", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> watermarkImageDownload(@RequestParam("text") String text, @RequestParam(name = "file") MultipartFile file) {
+        if (file != null) {
+            if (file.getContentType() != null && (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png"))) {
+                try {
+                    File watermarkImage = addTextWatermark(text, multipartToFile(file));
+                    byte[] bytes = readFileToByteArray(watermarkImage);
+                    return new ResponseEntity<>(bytes, HttpStatus.OK);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
