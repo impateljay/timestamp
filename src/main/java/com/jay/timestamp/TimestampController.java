@@ -27,7 +27,6 @@ public class TimestampController {
 
     private ResponseEntity<String> getStringResponseEntity(@PathVariable("timezone") String timezone) {
         Date date = new Date();
-        String strDateFormat = "hh:mm:ss a";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss a");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
         String formattedDate = simpleDateFormat.format(date);
