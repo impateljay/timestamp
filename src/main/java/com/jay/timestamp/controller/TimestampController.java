@@ -1,4 +1,4 @@
-package com.jay.timestamp;
+package com.jay.timestamp.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.jay.timestamp;
+package com.jay.timestamp.controller;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
